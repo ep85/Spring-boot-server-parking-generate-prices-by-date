@@ -3,6 +3,7 @@ package io.swagger.api;
 import io.swagger.model.RateItem;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+import io.swagger.service.RateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -31,10 +32,13 @@ public class RatesApiController implements RatesApi {
 
     private final HttpServletRequest request;
 
+    private final RateService rateService;
+
     @org.springframework.beans.factory.annotation.Autowired
-    public RatesApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+    public RatesApiController(ObjectMapper objectMapper, HttpServletRequest request, RateService rateService) {
         this.objectMapper = objectMapper;
         this.request = request;
+        this.rateService = rateService;
     }
 
     public ResponseEntity<List<RateItem>> getRates() {
