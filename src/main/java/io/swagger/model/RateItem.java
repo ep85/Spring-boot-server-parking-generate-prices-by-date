@@ -8,10 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -22,6 +19,7 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-12-27T23:23:02.463Z")
 
 @Entity
+@Table(name="rates")
 public class RateItem   {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
@@ -37,7 +35,7 @@ public class RateItem   {
   private String tz = null;
 
   @JsonProperty("price")
-  private BigDecimal price = null;
+  private Long price = null;
 
   public RateItem days(String days) {
     this.days = days;
@@ -102,7 +100,7 @@ public class RateItem   {
     this.tz = tz;
   }
 
-  public RateItem price(BigDecimal price) {
+  public RateItem price(Long price) {
     this.price = price;
     return this;
   }
@@ -116,11 +114,11 @@ public class RateItem   {
 
   @Valid
 
-  public BigDecimal getPrice() {
+  public Long getPrice() {
     return price;
   }
 
-  public void setPrice(BigDecimal price) {
+  public void setPrice(Long price) {
     this.price = price;
   }
 

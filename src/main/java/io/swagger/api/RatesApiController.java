@@ -1,5 +1,6 @@
 package io.swagger.api;
 
+import com.fasterxml.jackson.core.JsonParser;
 import io.swagger.model.RateItem;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
@@ -45,7 +46,10 @@ public class RatesApiController implements RatesApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<List<RateItem>>(objectMapper.readValue("{}", List.class), HttpStatus.NOT_IMPLEMENTED);
+                ObjectMapper mapper = new ObjectMapper();
+                List<RateItem> rateItems = rateService.getRates();
+                String json = mapper.writeValueAsString(rateItems);
+                return new ResponseEntity<List<RateItem>>(objectMapper.readValue(json, List.class), HttpStatus.OK);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<List<RateItem>>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -55,9 +59,15 @@ public class RatesApiController implements RatesApi {
         return new ResponseEntity<List<RateItem>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Void> submitRates(@ApiParam(value = "Rate items to replace the current stored rates"  )  @Valid @RequestBody RateItem rateItem) {
+    public ResponseEntity<Void> submitRates(@ApiParam(value = "Rate items to replace the current stored rates"  )  @Valid @RequestBody List<RateItem> rateItems) {
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        try {
+            rateService.insertAll(rateItems);
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("Error Inserting Records ", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

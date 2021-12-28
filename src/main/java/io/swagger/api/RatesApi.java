@@ -21,14 +21,14 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-12-27T23:23:02.463Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-12-28T04:05:37.422Z")
 
 @Validated
 @Api(value = "rates", description = "the rates API")
-@RequestMapping(value = "/ep85/stub-hub-test/1.0.0")
+@RequestMapping(value = "/ep85/spot-hero/1.0.0")
 public interface RatesApi {
 
-    @ApiOperation(value = "Get a ll stored Rate items", nickname = "getRates", notes = "Get all stored rate items ", response = RateItem.class, responseContainer = "List", tags={ "Rates", })
+    @ApiOperation(value = "Get all stored Rate items", nickname = "getRates", notes = "Get all stored rate items ", response = RateItem.class, responseContainer = "List", tags={ "Rates", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Sucessfully submitted Rates", response = RateItem.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "bad input parameter") })
@@ -45,6 +45,6 @@ public interface RatesApi {
     @RequestMapping(value = "/rates",
         produces = { "application/json" }, 
         method = RequestMethod.PUT)
-    ResponseEntity<Void> submitRates(@ApiParam(value = "Rate items to replace the current stored rates"  )  @Valid @RequestBody RateItem rateItem);
+    ResponseEntity<Void> submitRates(@ApiParam(value = "Rate items to replace the current stored rates"  )  @Valid @RequestBody List<RateItem> rateItem);
 
 }

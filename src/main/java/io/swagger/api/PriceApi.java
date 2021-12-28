@@ -21,11 +21,11 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-12-27T23:23:02.463Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-12-28T04:05:37.422Z")
 
 @Validated
 @Api(value = "price", description = "the price API")
-@RequestMapping(value = "/ep85/stub-hub-test/1.0.0")
+@RequestMapping(value = "/ep85/spot-hero/1.0.0")
 public interface PriceApi {
 
     @ApiOperation(value = "Get price at a given start and end time", nickname = "getPrice", notes = "It allows the user to request the price for a requested time", response = ItemPrice.class, tags={ "Price", })
