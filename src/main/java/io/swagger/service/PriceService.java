@@ -52,7 +52,7 @@ public class PriceService {
         return df.parse(date);
     }
 
-    private Date formatDateIncomingWithTimeZone(String date, String timezone) throws Exception{
+    private Date formatDateIncomingWithTimeZone(String date, String timezone) throws Exception {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
         TimeZone tz = TimeZone.getTimeZone(timezone);
         df.setTimeZone(tz);
@@ -61,13 +61,14 @@ public class PriceService {
     }
 
 
-    private Long findDateInRange(String start, String end) throws IOException {
+    private Long findDateInRange(String start, String end) throws Exception {
         List<RateItem> rateItemsList = rateRepository.getAllItems();
         for (RateItem rateItem: rateItemsList) {
             try {
                 // convert timezone to check
                 Date incomingStartDateFormatted = formatDateIncomingWithTimeZone(start, rateItem.getTz());
                 Date incomingEndDateFormatted = formatDateIncomingWithTimeZone(end, rateItem.getTz());
+
 
                 String incomingStartDay = daysOfWeek.get(incomingStartDateFormatted.getDay());
                 String incomingEndDay = daysOfWeek.get(incomingEndDateFormatted.getDay());
@@ -95,7 +96,7 @@ public class PriceService {
                 }
             } catch (Exception e){
                 System.out.println(String.format("Error in findDateInRange %s", e.getMessage()));
-                throw new IOException(e.getMessage());
+                throw new Exception(e.getMessage());
             }
         }
         throw new IOException("NONE FOUND");
