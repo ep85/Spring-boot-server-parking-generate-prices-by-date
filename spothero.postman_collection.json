@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "570c5c59-c26c-4dd3-821b-9e0ea21bce88",
+		"name": "spothero",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Rates",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/ep85/spot-hero/1.0.0/ep85/spot-hero/1.0.0/rates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ep85",
+						"spot-hero",
+						"1.0.0",
+						"ep85",
+						"spot-hero",
+						"1.0.0",
+						"rates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Rates",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[  \n   {\n\"days\": \"mon,tues,thurs\",\n\"times\": \"0900-2100\",\n\"tz\": \"America/Chicago\",\n\"price\": 1500\n},\n{\n\"days\": \"fri,sat,sun\",\n\"times\": \"0900-2100\",\n\"tz\": \"America/Chicago\",\n\"price\": 2000\n},\n{\n\"days\": \"wed\",\n\"times\": \"0600-1800\",\n\"tz\": \"America/Chicago\",\n\"price\": 1750\n},\n{\n\"days\": \"mon,wed,sat\",\n\"times\": \"0100-0500\",\n\"tz\": \"America/Chicago\",\n\"price\": 1000\n},\n{\n\"days\": \"sun,tues\",\n\"times\": \"0100-0700\",\n\"tz\": \"America/Chicago\",\n\"price\" :925\n}\n ]"
+				},
+				"url": {
+					"raw": "http://localhost:5000/ep85/spot-hero/1.0.0/ep85/spot-hero/1.0.0/rates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ep85",
+						"spot-hero",
+						"1.0.0",
+						"ep85",
+						"spot-hero",
+						"1.0.0",
+						"rates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get price",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/ep85/spot-hero/1.0.0/ep85/spot-hero/1.0.0/price?start=2015-07-01T07:00:00-05:00&end=2015-07-01T12:00:00-05:00",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ep85",
+						"spot-hero",
+						"1.0.0",
+						"ep85",
+						"spot-hero",
+						"1.0.0",
+						"price"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "2015-07-01T07:00:00-05:00"
+						},
+						{
+							"key": "end",
+							"value": "2015-07-01T12:00:00-05:00"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

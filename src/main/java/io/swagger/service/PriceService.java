@@ -67,7 +67,7 @@ public class PriceService {
                 // convert timezone to check
                 Date incomingStartDateFormatted = formatDateIncomingWithTimeZone(start, rateItem.getTz());
                 Date incomingEndDateFormatted = formatDateIncomingWithTimeZone(end, rateItem.getTz());
-                
+
                 String incomingStartDay = daysOfWeek.get(incomingStartDateFormatted.getDay());
                 String incomingEndDay = daysOfWeek.get(incomingEndDateFormatted.getDay());
                 // compare if this is the same day
