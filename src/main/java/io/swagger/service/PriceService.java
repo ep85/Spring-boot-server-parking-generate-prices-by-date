@@ -56,8 +56,7 @@ public class PriceService {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
         TimeZone tz = TimeZone.getTimeZone(timezone);
         df.setTimeZone(tz);
-        String newDate = df.format(date);
-        return df.parse(newDate);
+        return df.parse(date);
     }
 
 
@@ -68,15 +67,14 @@ public class PriceService {
                 // convert timezone to check
                 Date incomingStartDateFormatted = formatDateIncomingWithTimeZone(start, rateItem.getTz());
                 Date incomingEndDateFormatted = formatDateIncomingWithTimeZone(end, rateItem.getTz());
-
-
+                
                 String incomingStartDay = daysOfWeek.get(incomingStartDateFormatted.getDay());
                 String incomingEndDay = daysOfWeek.get(incomingEndDateFormatted.getDay());
                 // compare if this is the same day
                 List<String> daysInDbRow = Arrays.asList(rateItem.getDays().split(","));
-                if (daysInDbRow.contains(incomingStartDay) && daysInDbRow.contains(incomingEndDay)) {
-                    //compare if in time
 
+                // Check Day
+                if (daysInDbRow.contains(incomingStartDay) && daysInDbRow.contains(incomingEndDay)) {
                     // rateItem from db
                     List<String> times = Arrays.asList(rateItem.getTimes().split("-"));
                     // from incoming request

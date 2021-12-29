@@ -33,7 +33,7 @@ public class PriceApiController implements PriceApi {
         this.priceService = priceService;
     }
 
-    public ResponseEntity<ItemPrice> getPrice(@ApiParam(value = "input date/times as ISO-8601 with timezones") @Valid @RequestParam(value = "start", required = false) String start,@ApiParam(value = "input date/times as ISO-8601 with timezones") @Valid @RequestParam(value = "end", required = false) String end) {
+    public ResponseEntity getPrice(@ApiParam(value = "input date/times as ISO-8601 with timezones") @Valid @RequestParam(value = "start", required = false) String start,@ApiParam(value = "input date/times as ISO-8601 with timezones") @Valid @RequestParam(value = "end", required = false) String end) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
@@ -42,13 +42,13 @@ public class PriceApiController implements PriceApi {
                 itemPrice.setPrice(price);
                 ObjectMapper mapper = new ObjectMapper();
                 String json = mapper.writeValueAsString(itemPrice);
-                return new ResponseEntity<ItemPrice>(objectMapper.readValue(json, ItemPrice.class), HttpStatus.NOT_IMPLEMENTED);
+                return ResponseEntity.ok(json);
             } catch (IOException e) {
                 log.error(e.getMessage());
-                return new ResponseEntity<ItemPrice>(HttpStatus.SERVICE_UNAVAILABLE);
+                return ResponseEntity.ok("unavaialbe");
             } catch (Exception e) {
                 log.error(e.getMessage());
-                return new ResponseEntity<ItemPrice>(HttpStatus.INTERNAL_SERVER_ERROR);
+                return (ResponseEntity) ResponseEntity.badRequest();
             }
         }
 
