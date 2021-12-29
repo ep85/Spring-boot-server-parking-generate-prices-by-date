@@ -14,6 +14,9 @@ import java.util.List;
 @Repository
 @Transactional
 public interface RateRepository extends JpaRepository<RateItem, Integer> {
+    @Query(value = "DELETE FROM rates", nativeQuery = true)
+    @Modifying
+    void deleteAll();
 
     @Query(value = "INSERT INTO rates (days, times, tz, price) VALUES (:days, :times, :tz, :price)", nativeQuery = true)
     @Modifying
@@ -21,7 +24,4 @@ public interface RateRepository extends JpaRepository<RateItem, Integer> {
 
     @Query(value = "SELECT * FROM rates", nativeQuery = true)
     List<RateItem> getAllItems();
-
-    @Query(value = "SELECT * FROM rates r WHERE r.time >= :start AND r.time <= :end", nativeQuery = true)
-    ItemPrice getByDateRange(@Param("start") String start, @Param("end") String end) ;
 }

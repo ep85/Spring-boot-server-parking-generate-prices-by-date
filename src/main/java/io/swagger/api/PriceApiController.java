@@ -3,6 +3,7 @@ package io.swagger.api;
 import io.swagger.model.ItemPrice;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+import io.swagger.service.PriceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import java.util.List;
 
 @Controller
 public class PriceApiController implements PriceApi {
+    private final PriceService priceService;
 
     private static final Logger log = LoggerFactory.getLogger(PriceApiController.class);
 
@@ -32,18 +34,27 @@ public class PriceApiController implements PriceApi {
     private final HttpServletRequest request;
 
     @org.springframework.beans.factory.annotation.Autowired
-    public PriceApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+    public PriceApiController(ObjectMapper objectMapper, HttpServletRequest request, PriceService priceService) {
         this.objectMapper = objectMapper;
         this.request = request;
+        this.priceService = priceService;
     }
 
     public ResponseEntity<ItemPrice> getPrice(@ApiParam(value = "input date/times as ISO-8601 with timezones") @Valid @RequestParam(value = "start", required = false) String start,@ApiParam(value = "input date/times as ISO-8601 with timezones") @Valid @RequestParam(value = "end", required = false) String end) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<ItemPrice>(objectMapper.readValue("{\"empty\": false}", ItemPrice.class), HttpStatus.NOT_IMPLEMENTED);
+                Long price = priceService.getPrice(start, end);
+                ItemPrice itemPrice = new ItemPrice();
+                itemPrice.setPrice(price);
+                ObjectMapper mapper = new ObjectMapper();
+                String json = mapper.writeValueAsString(itemPrice);
+                return new ResponseEntity<ItemPrice>(objectMapper.readValue(json, ItemPrice.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
+                log.error(e.getMessage());
+                return new ResponseEntity<ItemPrice>(HttpStatus.SERVICE_UNAVAILABLE);
+            } catch (Exception e) {
+                log.error(e.getMessage());
                 return new ResponseEntity<ItemPrice>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }

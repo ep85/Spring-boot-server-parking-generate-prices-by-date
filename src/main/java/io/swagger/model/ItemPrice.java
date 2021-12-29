@@ -19,9 +19,9 @@ import javax.validation.constraints.*;
 
 public class ItemPrice   {
   @JsonProperty("price")
-  private BigDecimal price = null;
+  private Long price = null;
 
-  public ItemPrice price(BigDecimal price) {
+  public ItemPrice price(Long price) {
     this.price = price;
     return this;
   }
@@ -35,11 +35,11 @@ public class ItemPrice   {
 
   @Valid
 
-  public BigDecimal getPrice() {
+  public Long getPrice() {
     return price;
   }
 
-  public void setPrice(BigDecimal price) {
+  public void setPrice(Long price) {
     this.price = price;
   }
 

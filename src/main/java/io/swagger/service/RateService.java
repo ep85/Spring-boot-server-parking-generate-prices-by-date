@@ -16,6 +16,9 @@ public class RateService {
     }
 
     public void insertAll(List<RateItem> rateItemList) throws Exception {
+        // Delete all rows first
+        rateRepository.deleteAll();
+        // Add new rows
         for (RateItem rateItem: rateItemList) {
             rateRepository.insertRateItem(rateItem.getDays(), rateItem.getTimes(), rateItem.getTz(), rateItem.getPrice());
         }
