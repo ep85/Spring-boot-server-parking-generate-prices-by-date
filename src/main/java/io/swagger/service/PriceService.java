@@ -3,12 +3,14 @@ package io.swagger.service;
 import io.swagger.model.RateItem;
 import io.swagger.repository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@Service
 public class PriceService {
     private final RateRepository rateRepository;
 
