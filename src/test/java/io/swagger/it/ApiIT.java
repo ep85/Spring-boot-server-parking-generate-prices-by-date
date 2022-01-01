@@ -33,6 +33,7 @@ import static org.mockito.Mockito.doReturn;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ApiIT {
+    private final RestTemplate restTemplate = new RestTemplate();
 
     @Autowired
     private RateRepository rateRepository;
@@ -40,14 +41,13 @@ public class ApiIT {
     @LocalServerPort
     int randomServerPort;
 
-    @BeforeEach
-    public void BeforeEachSetup(){
+    private void BeforeEachSetup(){
         rateRepository.deleteAll();
     }
 
     @Test
     public void testGetAllRates_success() throws URISyntaxException {
-        RestTemplate restTemplate = new RestTemplate();
+        BeforeEachSetup();
 
         // Mock
         RateItem rateItem = new RateItem();
@@ -73,7 +73,7 @@ public class ApiIT {
 
     @Test
     public void testGetAllRates_Empty() throws URISyntaxException, IOException {
-        RestTemplate restTemplate = new RestTemplate();
+        BeforeEachSetup();
 
         // ACT
         final String baseUrl = "http://localhost:" + randomServerPort + "/ep85/spot-hero/1.0.0/ep85/spot-hero/1.0.0/rates";
@@ -88,7 +88,7 @@ public class ApiIT {
 
     @Test
     public void testPutRates_Success() throws URISyntaxException {
-        RestTemplate restTemplate = new RestTemplate();
+        BeforeEachSetup();
 
         // Mock
         RateItem rateItem = new RateItem();
@@ -127,7 +127,7 @@ public class ApiIT {
 
     @Test
     public void testGetPrice_Success() throws URISyntaxException {
-        RestTemplate restTemplate = new RestTemplate();
+        BeforeEachSetup();
 
         // Mock
         RateItem rateItem = new RateItem();
